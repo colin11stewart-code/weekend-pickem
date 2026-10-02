@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weekend Pick'em</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#0f1114;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  color:#e8eaed;padding:20px 16px 120px;max-width:1120px;margin:0 auto}
+h1{font-size:26px;letter-spacing:-.4px}
+.sub{color:#9aa0a6;font-size:14px;margin:6px 0 20px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.card{background:#1b1e22;border:1px solid #2a2e33;border-radius:12px;padding:14px 16px}
+.top{color:#9aa0a6;font-size:12px;letter-spacing:.3px;margin-bottom:10px;display:flex;
+  align-items:center;gap:6px}
+.lg{color:#4a9eff}
+.num{margin-left:auto;background:#2a2e33;border-radius:5px;padding:1px 7px;font-weight:600}
+.row{display:flex;align-items:stretch;gap:6px}
+.side{flex:1;background:transparent;border:1.5px solid transparent;border-radius:10px;
+  padding:10px 8px;cursor:pointer;font:inherit;color:inherit;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;
+  transition:background .12s,border-color .12s}
+.side:hover{background:#23272c}
+.side img{width:42px;height:42px;object-fit:contain}
+.nm{font-size:14px;font-weight:500;line-height:1.2}
+.rk{color:#9aa0a6;font-weight:400;margin-right:4px}
+.fav{font-size:12px;color:#f5c518;font-weight:600;min-height:16px}
+.star{margin-right:3px}
+.tick{position:absolute;top:5px;right:7px;color:#19c37d;font-size:14px;font-weight:700;
+  opacity:0;transition:opacity .12s}
+.side[aria-pressed="true"]{background:#13301f;border-color:#19c37d}
+.side[aria-pressed="true"] .tick{opacity:1}
+.at{color:#9aa0a6;font-size:12px;align-self:center}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#15181c;border-top:1px solid #2a2e33;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;
+  gap:12px;justify-content:center}
+.count{font-size:14px;color:#9aa0a6}
+.count b{color:#e8eaed}
+button.send{background:#19c37d;color:#06281a;border:0;border-radius:9px;padding:11px 20px;
+  font-size:15px;font-weight:700;cursor:pointer}
+button.send:disabled{background:#2a2e33;color:#6b7076;cursor:not-allowed}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;background:#e8eaed;
+  color:#15181c;padding:11px 18px;border-radius:9px;font-size:14px;font-weight:600;
+  opacity:0;pointer-events:none;transition:opacity .2s;max-width:88%;text-align:center}
+.toast.on{opacity:1}
+@media(max-width:420px){.side img{width:36px;height:36px}.nm{font-size:13px}}
+</style></head><body>
+<h1>Weekend Pick&rsquo;em</h1>
+<div class="sub">Tap the team you think <b>wins</b> &mdash; straight up, spread doesn&rsquo;t matter.
+The <span style="color:#f5c518">&#9733; starred</span> side is the Vegas favorite, just for reference.<br>
+Pick all 25, then hit <b>Send my picks</b> and text them to Colin. Graded Monday.</div>
+<div class="grid">
+<div class="card" id="g1">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 9:00 AM
+    <span class="num">1</span></div>
+  <div class="row"><button class="side" data-g="1" data-pick="ALA" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/333.png" alt="" loading="lazy"><div class="nm"><span class="rk">7</span>Alabama</div><div class="fav"><span class="star">&#9733;</span>-6</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="1" data-pick="MSST" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/344.png" alt="" loading="lazy"><div class="nm"><span class="rk">16</span>Mississippi St</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g2">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 9:45 AM
+    <span class="num">2</span></div>
+  <div class="row"><button class="side" data-g="2" data-pick="VAN" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/238.png" alt="" loading="lazy"><div class="nm">Vanderbilt</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="2" data-pick="UGA" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/61.png" alt="" loading="lazy"><div class="nm"><span class="rk">2</span>Georgia</div><div class="fav"><span class="star">&#9733;</span>-25.5</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g3">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 12:30 PM
+    <span class="num">3</span></div>
+  <div class="row"><button class="side" data-g="3" data-pick="OSU" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/194.png" alt="" loading="lazy"><div class="nm"><span class="rk">5</span>Ohio State</div><div class="fav"><span class="star">&#9733;</span>-14</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="3" data-pick="IOWA" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png" alt="" loading="lazy"><div class="nm"><span class="rk">14</span>Iowa</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g4">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 12:30 PM
+    <span class="num">4</span></div>
+  <div class="row"><button class="side" data-g="4" data-pick="FLA" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/57.png" alt="" loading="lazy"><div class="nm"><span class="rk">8</span>Florida</div><div class="fav"><span class="star">&#9733;</span>-5.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="4" data-pick="MIZ" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/142.png" alt="" loading="lazy"><div class="nm"><span class="rk">25</span>Missouri</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g5">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 12:30 PM
+    <span class="num">5</span></div>
+  <div class="row"><button class="side" data-g="5" data-pick="AUB" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2.png" alt="" loading="lazy"><div class="nm">Auburn</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="5" data-pick="TENN" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png" alt="" loading="lazy"><div class="nm"><span class="rk">17</span>Tennessee</div><div class="fav"><span class="star">&#9733;</span>-7</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g6">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 1:15 PM
+    <span class="num">6</span></div>
+  <div class="row"><button class="side" data-g="6" data-pick="UK" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/96.png" alt="" loading="lazy"><div class="nm"><span class="rk">24</span>Kentucky</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="6" data-pick="SC" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png" alt="" loading="lazy"><div class="nm">South Carolina</div><div class="fav"><span class="star">&#9733;</span>-3</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g7">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 4:00 PM
+    <span class="num">7</span></div>
+  <div class="row"><button class="side" data-g="7" data-pick="BYU" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/252.png" alt="" loading="lazy"><div class="nm"><span class="rk">10</span>BYU</div><div class="fav"><span class="star">&#9733;</span>-6.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="7" data-pick="TCU" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png" alt="" loading="lazy"><div class="nm">TCU</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g8">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 4:30 PM
+    <span class="num">8</span></div>
+  <div class="row"><button class="side" data-g="8" data-pick="MIA" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png" alt="" loading="lazy"><div class="nm"><span class="rk">4</span>Miami</div><div class="fav"><span class="star">&#9733;</span>-16.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="8" data-pick="CLEM" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/228.png" alt="" loading="lazy"><div class="nm">Clemson</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g9">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 4:30 PM
+    <span class="num">9</span></div>
+  <div class="row"><button class="side" data-g="9" data-pick="TTU" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png" alt="" loading="lazy"><div class="nm"><span class="rk">12</span>Texas Tech</div><div class="fav"><span class="star">&#9733;</span>-13.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="9" data-pick="COLO" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/38.png" alt="" loading="lazy"><div class="nm">Colorado</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g10">
+  <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 4:30 PM
+    <span class="num">10</span></div>
+  <div class="row"><button class="side" data-g="10" data-pick="WASH" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/264.png" alt="" loading="lazy"><div class="nm">Washington</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="10" data-pick="USC" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/30.png" alt="" loading="lazy"><div class="nm"><span class="rk">18</span>USC</div><div class="fav"><span class="star">&#9733;</span>-8.5</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g11">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 6:30 AM
+    <span class="num">11</span></div>
+  <div class="row"><button class="side" data-g="11" data-pick="IND" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png" alt="" loading="lazy"><div class="nm">Colts</div><div class="fav"><span class="star">&#9733;</span>-3.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="11" data-pick="WSH" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png" alt="" loading="lazy"><div class="nm">Commanders</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g12">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">12</span></div>
+  <div class="row"><button class="side" data-g="12" data-pick="NE" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png" alt="" loading="lazy"><div class="nm">Patriots</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="12" data-pick="BUF" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png" alt="" loading="lazy"><div class="nm">Bills</div><div class="fav"><span class="star">&#9733;</span>-7</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g13">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">13</span></div>
+  <div class="row"><button class="side" data-g="13" data-pick="NYJ" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png" alt="" loading="lazy"><div class="nm">Jets</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="13" data-pick="CHI" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png" alt="" loading="lazy"><div class="nm">Bears</div><div class="fav"><span class="star">&#9733;</span>-3.5</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g14">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">14</span></div>
+  <div class="row"><button class="side" data-g="14" data-pick="JAX" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png" alt="" loading="lazy"><div class="nm">Jaguars</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="14" data-pick="CIN" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png" alt="" loading="lazy"><div class="nm">Bengals</div><div class="fav"><span class="star">&#9733;</span>-2.5</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g15">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">15</span></div>
+  <div class="row"><button class="side" data-g="15" data-pick="ARI" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png" alt="" loading="lazy"><div class="nm">Cardinals</div><div class="fav"><span class="star">&#9733;</span>-2.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="15" data-pick="NYG" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png" alt="" loading="lazy"><div class="nm">Giants</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g16">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">16</span></div>
+  <div class="row"><button class="side" data-g="16" data-pick="LAR" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png" alt="" loading="lazy"><div class="nm">Rams</div><div class="fav"><span class="star">&#9733;</span>-3.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="16" data-pick="PHI" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png" alt="" loading="lazy"><div class="nm">Eagles</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g17">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">17</span></div>
+  <div class="row"><button class="side" data-g="17" data-pick="GB" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png" alt="" loading="lazy"><div class="nm">Packers</div><div class="fav"><span class="star">&#9733;</span>-3.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="17" data-pick="TB" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png" alt="" loading="lazy"><div class="nm">Buccaneers</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g18">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">18</span></div>
+  <div class="row"><button class="side" data-g="18" data-pick="TEN" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png" alt="" loading="lazy"><div class="nm">Titans</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="18" data-pick="BAL" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png" alt="" loading="lazy"><div class="nm">Ravens</div><div class="fav"><span class="star">&#9733;</span>-11.5</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g19">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 10:00 AM
+    <span class="num">19</span></div>
+  <div class="row"><button class="side" data-g="19" data-pick="DAL" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png" alt="" loading="lazy"><div class="nm">Cowboys</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="19" data-pick="HOU" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png" alt="" loading="lazy"><div class="nm">Texans</div><div class="fav"><span class="star">&#9733;</span>-3</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g20">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 1:05 PM
+    <span class="num">20</span></div>
+  <div class="row"><button class="side" data-g="20" data-pick="MIA" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png" alt="" loading="lazy"><div class="nm">Dolphins</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="20" data-pick="MIN" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png" alt="" loading="lazy"><div class="nm">Vikings</div><div class="fav"><span class="star">&#9733;</span>-10.5</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g21">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 1:25 PM
+    <span class="num">21</span></div>
+  <div class="row"><button class="side" data-g="21" data-pick="KC" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png" alt="" loading="lazy"><div class="nm">Chiefs</div><div class="fav"><span class="star">&#9733;</span>-4.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="21" data-pick="LV" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png" alt="" loading="lazy"><div class="nm">Raiders</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g22">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 1:25 PM
+    <span class="num">22</span></div>
+  <div class="row"><button class="side" data-g="22" data-pick="DEN" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png" alt="" loading="lazy"><div class="nm">Broncos</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="22" data-pick="SF" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png" alt="" loading="lazy"><div class="nm">49ers</div><div class="fav"><span class="star">&#9733;</span>-3</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g23">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 1:25 PM
+    <span class="num">23</span></div>
+  <div class="row"><button class="side" data-g="23" data-pick="LAC" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png" alt="" loading="lazy"><div class="nm">Chargers</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="23" data-pick="SEA" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png" alt="" loading="lazy"><div class="nm">Seahawks</div><div class="fav"><span class="star">&#9733;</span>-7</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g24">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>SUN 5:20 PM
+    <span class="num">24</span></div>
+  <div class="row"><button class="side" data-g="24" data-pick="DET" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png" alt="" loading="lazy"><div class="nm">Lions</div><div class="fav"><span class="star">&#9733;</span>-3.5</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="24" data-pick="CAR" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png" alt="" loading="lazy"><div class="nm">Panthers</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button></div>
+</div>
+<div class="card" id="g25">
+  <div class="top"><span class="lg">NFL</span><span class="dot">&middot;</span>MON 5:15 PM
+    <span class="num">25</span></div>
+  <div class="row"><button class="side" data-g="25" data-pick="ATL" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png" alt="" loading="lazy"><div class="nm">Falcons</div><div class="fav">&nbsp;</div><div class="tick">&#10003;</div></button><div class="at">at</div><button class="side" data-g="25" data-pick="NO" aria-pressed="false"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png" alt="" loading="lazy"><div class="nm">Saints</div><div class="fav"><span class="star">&#9733;</span>-2.5</div><div class="tick">&#10003;</div></button></div>
+</div>
+</div>
+<div class="bar">
+  <span class="count"><b id="n">0</b> of 25 picked</span>
+  <button class="send" id="send" disabled>Send my picks</button>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var TOTAL=25,picks={};
+document.querySelectorAll('.side').forEach(function(b){
+  b.addEventListener('click',function(){
+    var g=b.dataset.g;
+    b.closest('.row').querySelectorAll('.side').forEach(function(o){
+      o.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true');
+    picks[g]=b.dataset.pick;
+    var n=Object.keys(picks).length;
+    document.getElementById('n').textContent=n;
+    document.getElementById('send').disabled=(n<TOTAL);
+  });
+});
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');
+  setTimeout(function(){t.classList.remove('on');},3400);}
+document.getElementById('send').addEventListener('click',function(){
+  var out=[];for(var i=1;i<=TOTAL;i++){out.push(i+' '+picks[i]);}
+  var txt='My picks: '+out.join(', ');
+  function fallback(){
+    var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';
+    ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);
+  }
+  var done=function(){
+    toast('Picks copied! Paste them in a text to Colin.');
+    setTimeout(function(){window.location.href='sms:&body='+encodeURIComponent(txt);},900);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,function(){fallback();done();});
+  }else{fallback();done();}
+});
+</script></body></html>
