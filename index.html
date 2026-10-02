@@ -51,7 +51,8 @@ button.send:disabled{background:#2a2e33;color:#6b7076;cursor:not-allowed}
 <h1>Weekend Pick&rsquo;em</h1>
 <div class="sub">Tap the team you think <b>wins</b> &mdash; straight up, spread doesn&rsquo;t matter.
 The <span style="color:#f5c518">&#9733; starred</span> side is the Vegas favorite, just for reference.<br>
-Pick all 30, put your name in, then hit <b>Send my picks</b>. Graded Monday.</div>
+Pick all 30, then hit <b>Send my picks</b> &mdash; it opens a text with your picks filled in.
+Graded Monday.</div>
 <div class="grid">
 <div class="card" id="g1">
   <div class="top"><span class="lg">NCAA Football</span><span class="dot">&middot;</span>SAT 9:00 AM
@@ -228,10 +229,8 @@ function toast(m){var t=document.getElementById('toast');t.textContent=m;t.class
   setTimeout(function(){t.classList.remove('on');},3400);}
 document.getElementById('send').addEventListener('click',function(){
   var who=(document.getElementById('who').value||'').trim();
-  if(!who){toast('Add your name first so I know whose sheet this is.');
-    document.getElementById('who').focus();return;}
   var out=[];for(var i=1;i<=TOTAL;i++){out.push(i+' '+picks[i]);}
-  var txt=who+"'s picks: "+out.join(', ');
+  var txt=(who?who+"'s picks: ":'My picks: ')+out.join(', ');
   function fallback(){
     var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';
     ta.style.opacity='0';document.body.appendChild(ta);ta.select();
@@ -239,10 +238,11 @@ document.getElementById('send').addEventListener('click',function(){
     document.body.removeChild(ta);
   }
   var done=function(){
-    toast('Copied! Opening email — just hit send.');
+    toast('Copied! Opening Messages — just hit send.');
     setTimeout(function(){
-      window.location.href='mailto:colinstewart032004@gmail.com?subject='
-        +encodeURIComponent("Pick'em picks - "+who)+'&body='+encodeURIComponent(txt);
+      var ios=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+      var sep=ios?'&':'?';
+      window.location.href='sms:'+sep+'body='+encodeURIComponent(txt);
     },900);
   };
   if(navigator.clipboard&&navigator.clipboard.writeText){
